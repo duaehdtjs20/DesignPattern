@@ -1,33 +1,35 @@
-﻿using DesignPatterns.Observer;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ParticleObserver : MonoBehaviour
+namespace DesignPatterns.Observer
 {
-    [SerializeField] private ButtonSubject subjectToObserver;
-    [SerializeField] private ParticleSystem particle;
-    private void Awake()
+    public class ParticleObserver : MonoBehaviour
     {
-        if (particle == null)
+        [SerializeField] private ButtonSubject subjectToObserver;
+        [SerializeField] private ParticleSystem particle;
+        private void Awake()
         {
-            particle = GetComponent<ParticleSystem>();
+            if (particle == null)
+            {
+                particle = GetComponent<ParticleSystem>();
+            }
+            if (subjectToObserver != null)
+            {
+                subjectToObserver.Clicked += OnButtonClicked;
+            }
         }
-        if(subjectToObserver != null)
+        private void OnDestroy()
         {
-            subjectToObserver.Clicked += OnButtonClicked;
+            if (subjectToObserver != null)
+            {
+                subjectToObserver.Clicked -= OnButtonClicked;
+            }
         }
-    }
-    private void OnDestroy()
-    {
-        if(subjectToObserver != null)
+        private void OnButtonClicked()
         {
-            subjectToObserver.Clicked -= OnButtonClicked;
-        }
-    }
-    private void OnButtonClicked()
-    {
-        if (particle == null) return;
+            if (particle == null) return;
 
-        particle.Stop();
-        particle.Play();
+            particle.Stop();
+            particle.Play();
+        }
     }
 }

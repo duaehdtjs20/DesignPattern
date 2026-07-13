@@ -1,39 +1,41 @@
-﻿using DesignPatterns.Observer;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
-public class ScoreObserver : MonoBehaviour
+namespace DesignPatterns.Observer
 {
-    [SerializeField] private ButtonSubject subjectToObserver;
-    [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private int addScore = 10;
+    public class ScoreObserver : MonoBehaviour
+    {
+        [SerializeField] private ButtonSubject subjectToObserver;
+        [SerializeField] private TMP_Text scoreText;
+        [SerializeField] private int addScore = 10;
 
-    private int score;
-    private void Awake()
-    {
-        score = 0;
-        UpdateScoreText();
+        private int score;
+        private void Awake()
+        {
+            score = 0;
+            UpdateScoreText();
 
-        if(subjectToObserver != null)
-        {
-            subjectToObserver.Clicked += OnButtonClicked;
+            if (subjectToObserver != null)
+            {
+                subjectToObserver.Clicked += OnButtonClicked;
+            }
         }
-    }
-    private void OnDestroy()
-    {
-        if(subjectToObserver != null)
+        private void OnDestroy()
         {
-            subjectToObserver.Clicked -= OnButtonClicked;
+            if (subjectToObserver != null)
+            {
+                subjectToObserver.Clicked -= OnButtonClicked;
+            }
         }
-    }
-    private void UpdateScoreText()
-    {
-        if (scoreText == null) return;
-        scoreText.text = "Score : " + score;
-    }
-    private void OnButtonClicked()
-    {
-        score += addScore;
-        UpdateScoreText();
+        private void UpdateScoreText()
+        {
+            if (scoreText == null) return;
+            scoreText.text = "Score : " + score;
+        }
+        private void OnButtonClicked()
+        {
+            score += addScore;
+            UpdateScoreText();
+        }
     }
 }

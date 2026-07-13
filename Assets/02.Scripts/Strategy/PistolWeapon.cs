@@ -1,22 +1,25 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "PistolWeapon", menuName = "Weapons/Pistol")]
-public class PistolWeapon : WeaponStrategy
+namespace DesignPatterns.Strategy
 {
-    [Header("Bullet Prefab")]
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private float bulletSpeed = 15.0f;
-
-    public override void Fire(GameObject owner, Transform firePoint)
+    [CreateAssetMenu(fileName = "PistolWeapon", menuName = "Weapons/Pistol")]
+    public class PistolWeapon : WeaponStrategy
     {
-        base.Fire(owner, firePoint);
+        [Header("Bullet Prefab")]
+        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private float bulletSpeed = 15.0f;
 
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        if(rb != null)
+        public override void Fire(GameObject owner, Transform firePoint)
         {
-            rb.linearVelocity = firePoint.forward * bulletSpeed;
+            base.Fire(owner, firePoint);
+
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.linearVelocity = firePoint.forward * bulletSpeed;
+            }
         }
     }
 }

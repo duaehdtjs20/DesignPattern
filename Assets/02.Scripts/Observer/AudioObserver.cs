@@ -1,37 +1,39 @@
-﻿using DesignPatterns.Observer;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
-public class AudioObserver : MonoBehaviour
+namespace DesignPatterns.Observer
 {
-    [SerializeField] private ButtonSubject subjectToObserver;
-    [SerializeField] private float delay = 0.0f;
-    private AudioSource audioSource;
-    private void Awake()
+    public class AudioObserver : MonoBehaviour
     {
-        audioSource = GetComponent<AudioSource>();
-
-        if(subjectToObserver != null)
+        [SerializeField] private ButtonSubject subjectToObserver;
+        [SerializeField] private float delay = 0.0f;
+        private AudioSource audioSource;
+        private void Awake()
         {
-            subjectToObserver.Clicked += OnButtonClicked;
+            audioSource = GetComponent<AudioSource>();
+
+            if (subjectToObserver != null)
+            {
+                subjectToObserver.Clicked += OnButtonClicked;
+            }
         }
-    }
 
-    private void OnButtonClicked()
-    {
-        StartCoroutine(PlayWithDelay());
-    }
-    private IEnumerator PlayWithDelay()
-    {
-        yield return new WaitForSeconds(delay);
-        audioSource.Stop();
-        audioSource.Play();
-    }
-    private void OnDestroy()
-    {
-        if(subjectToObserver != null)
+        private void OnButtonClicked()
         {
-            subjectToObserver.Clicked -= OnButtonClicked;
+            StartCoroutine(PlayWithDelay());
+        }
+        private IEnumerator PlayWithDelay()
+        {
+            yield return new WaitForSeconds(delay);
+            audioSource.Stop();
+            audioSource.Play();
+        }
+        private void OnDestroy()
+        {
+            if (subjectToObserver != null)
+            {
+                subjectToObserver.Clicked -= OnButtonClicked;
+            }
         }
     }
 }

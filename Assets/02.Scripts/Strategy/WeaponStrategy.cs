@@ -28,15 +28,18 @@ Concrete strategy : 실제 알고리즘을 구현함.
 상태와 전략을 혼용해서 쓰는 경우가 많다.
 
 */
-public class WeaponStrategy : ScriptableObject
+namespace DesignPatterns.Strategy
 {
-    [Header("무기 이름")]
-    [SerializeField] protected string weaponName;
-
-    public string WeaponName => weaponName;
-    
-    public virtual void Fire(GameObject owner, Transform firePoint)
+    public class WeaponStrategy : ScriptableObject
     {
-        Debug.Log(weaponName + "발사");
+        [Header("무기 이름")]
+        [SerializeField] protected string weaponName;
+
+        public string WeaponName => weaponName;
+
+        public virtual void Fire(GameObject owner, Transform firePoint)
+        {
+            Debug.Log(weaponName + "발사");
+        }
     }
 }

@@ -1,24 +1,27 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "RocketWeapon", menuName = "Weapons/Rocket")]
-public class RocketWeapon : WeaponStrategy
+namespace DesignPatterns.Strategy
 {
-    [Header("Bullet Prefab")]
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private float rocketSpeed = 8.0f;
-
-    public override void Fire(GameObject owner, Transform firePoint)
+    [CreateAssetMenu(fileName = "RocketWeapon", menuName = "Weapons/Rocket")]
+    public class RocketWeapon : WeaponStrategy
     {
-        base.Fire(owner, firePoint);
+        [Header("Bullet Prefab")]
+        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private float rocketSpeed = 8.0f;
 
-        Quaternion spawnRotation = firePoint.rotation * bulletPrefab.transform.rotation;
-
-        GameObject rocket = Instantiate(bulletPrefab, firePoint.position, spawnRotation);
-
-        Rigidbody rb = rocket.GetComponent<Rigidbody>();
-        if(rb != null)
+        public override void Fire(GameObject owner, Transform firePoint)
         {
-            rb.linearVelocity = firePoint.forward * rocketSpeed;
+            base.Fire(owner, firePoint);
+
+            Quaternion spawnRotation = firePoint.rotation * bulletPrefab.transform.rotation;
+
+            GameObject rocket = Instantiate(bulletPrefab, firePoint.position, spawnRotation);
+
+            Rigidbody rb = rocket.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.linearVelocity = firePoint.forward * rocketSpeed;
+            }
         }
     }
 }

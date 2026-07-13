@@ -1,26 +1,29 @@
 ﻿using UnityEngine;
 
-public class WeaponSwitcher : MonoBehaviour
+namespace DesignPatterns.Strategy
 {
-    [SerializeField] private PlayerWeaponController weaponController;
-
-    [SerializeField] private WeaponStrategy pistol;
-    [SerializeField] private WeaponStrategy shotgun;
-    [SerializeField] private WeaponStrategy rocket;
-
-    private void Update()
+    public class WeaponSwitcher : MonoBehaviour
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        [SerializeField] private PlayerWeaponController weaponController;
+
+        [SerializeField] private WeaponStrategy pistol;
+        [SerializeField] private WeaponStrategy shotgun;
+        [SerializeField] private WeaponStrategy rocket;
+
+        private void Update()
         {
-            weaponController.CurrentWeapon = pistol;
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            weaponController.CurrentWeapon = shotgun;
-        }
-        if( Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            weaponController.CurrentWeapon = rocket;
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                weaponController.CurrentWeapon = pistol;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                weaponController.CurrentWeapon = shotgun;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                weaponController.CurrentWeapon = rocket;
+            }
         }
     }
 }

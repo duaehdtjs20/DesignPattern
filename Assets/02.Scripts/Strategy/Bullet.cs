@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace DesignPatterns.Strategy
 {
-    [SerializeField] private float lifeTime = 3.0f;
-    void Start()
+    public class Bullet : MonoBehaviour
     {
-        Destroy(gameObject, lifeTime);
-    }
+        [SerializeField] private float lifeTime = 3.0f;
+        void Start()
+        {
+            Destroy(gameObject, lifeTime);
+        }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Bullet")) return;
-        Destroy(gameObject);
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Bullet")) return;
+            Destroy(gameObject);
+        }
     }
 }
